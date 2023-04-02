@@ -18,7 +18,7 @@ pipeline {
                 sh 'docker build -t population .'
                 sh 'docker tag population:latest population:latest'
                 sh 'docker login'
-		sh 'docker push population:latest
+		        sh 'docker push population:latest'
             }
         }
  
@@ -32,7 +32,7 @@ pipeline {
             steps {
 
                 echo "Deploying on staging $VERSION"
-                sh 'helm install -f population/values.yaml population ./population -n population'
+                sh 'helm upgrade --install -f population/values.yaml population ./population -n population'
                }
         }
 
@@ -47,7 +47,7 @@ pipeline {
 
             steps {
                 echo "Deploying on prod $VERSION"
-                sh 'helm install -f population/values.yaml population ./population -n population'
+                sh 'helm upgrade --install -f population/values.yaml population ./population -n population'
 
             }
         }
