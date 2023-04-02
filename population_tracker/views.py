@@ -1,13 +1,12 @@
 from django.shortcuts import render
 import pandas as pd
 
-# Create your views here.
- 
-# relative import of forms
 from .models import City_Info
 from .forms import City_Info_form
- 
- 
+
+def health_check(request):
+    return render(request, 'home.html',{"message":"ok"})
+
 def create_view(request):
     # dictionary for initial data with
     # field names as keys
@@ -16,7 +15,7 @@ def create_view(request):
         form = City_Info_form(request.POST or None)
         if form.is_valid():
             form.save()
-        return render(request,"home.html",{"message":"Your Details Inserted Successfully"})
+        return show_all(request)
     else:
         form=City_Info_form()
         return render(request,"create_view.html",{"form":form})
@@ -38,8 +37,8 @@ def update(request):
             
         if form.is_valid:
             form.save()
-            
-        return render(request,"home.html",{"message":"Your Details updated Successfully"})
+        return show_all(request)   
+        #return render(request,"home.html",{"message":"Your Details updated Successfully"})
     else:
         form=City_Info_form()
         return render(request,"create_view.html",{"form":form})
