@@ -1,15 +1,10 @@
 pipeline {
-    agent { label 'tools1' }
+    agent any
 
     parameters {
         string(name: 'BRANCH', defaultValue: '', description: 'Branch name')
         string(name: 'ENVIRONMENT', defaultValue: '', description: 'ENVIRONMENT to deploy stage/prod')
-        string(name: 'VERSION', defaultValue: '', description: 'Provide the app version')
     }
-    environment {
-        ECR_URL = 'docker hub'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -21,8 +16,9 @@ pipeline {
             steps {
                
                 sh 'docker build -t population .'
-                sh 'docker tag population:latest $ECR_URL:$VERSION'
-                sh 'docker push $ECR_URL:$VERSION'
+                sh 'docker tag population:latest population:latest'
+                sh 'docker login'
+		sh 'docker push population:latest
             }
         }
  
@@ -36,7 +32,7 @@ pipeline {
             steps {
 
                 echo "Deploying on staging $VERSION"
-
+                sh 'helm install -f population/values.yaml population ./population -n population'
                }
         }
 
@@ -51,6 +47,7 @@ pipeline {
 
             steps {
                 echo "Deploying on prod $VERSION"
+                sh 'helm install -f population/values.yaml population ./population -n population'
 
             }
         }
