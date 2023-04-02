@@ -18,8 +18,8 @@ from django.urls import path
 from population_tracker import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('create/', views.create_view),
+   # path('admin/', admin.site.urls),
+    path('', views.create_view),
     path('show_all/', views.show_all),
     path('update/', views.update),
 ]

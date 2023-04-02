@@ -1,4 +1,4 @@
-FROM python:3.8.3-alpine
+FROM python:3.8
 
 WORKDIR /usr/src/app
 
@@ -7,9 +7,11 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip install --upgrade pip 
 
-COPY . /usr/src/app
+COPY ./requirements.txt /usr/src/app
 
 RUN pip install -r requirements.txt
+
+COPY . /usr/src/app
 
 EXPOSE 8000
 
