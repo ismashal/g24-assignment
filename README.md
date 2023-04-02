@@ -1,6 +1,6 @@
 # g24-assignment
 
-	Population and list of cities application
+Population and list of cities application
 
 	This application have the following APIs with UI
 
@@ -54,4 +54,5 @@ Method 3: Helm chart on k8s
     3. Test the application on the browser or curl using the `test.g24.com`
 
 
-	Note : Full not ready for production setup
+
+Note : Full not ready for production setup
